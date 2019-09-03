@@ -20,13 +20,16 @@
 5. **TIMESTAMP**：YYYYMMDD HHMMSS（1970-01-01 00:00:00/2038）
 
 ## MySQL常用连接
-内连接INNER JOIN：返回两个表都符合匹配规则的查询结果
+__内连接INNER JOIN__：返回两个表都符合匹配规则的查询结果
+
 `SELECT * FROM TABLE_A AS A INNER JOIN TABLE_B AS B ON A.id=x AND B.id=y;`
 
-外连接LEFT/RIGHT (OUTER可省略) JOIN：左外连接返回作表全部，右表不匹配的字段设NULL，右外连接同理。与内连接不同之处在于，两个表之一是完整的。
+__外连接LEFT/RIGHT (OUTER可省略) JOIN__：左外连接返回作表全部，右表不匹配的字段设NULL，右外连接同理。与内连接不同之处在于，两个表之一是完整的。
+
 `SELECT * FROM TABLE_A AS A LEFT JOIN TABLE_B AS B ON A.id=B.id;`
 
-全连接FULL JOIN：LEFT JOIN 加上 RIGHT JOIN
+__全连接FULL JOIN__：LEFT JOIN 加上 RIGHT JOIN
+
 `SELECT * FROM TABLE_A AS A FULL JOIN TABLE_B AS B ON A.id=B.id;`
 
 ## 乐观锁和悲观锁
