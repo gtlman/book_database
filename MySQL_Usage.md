@@ -22,22 +22,27 @@
 ## MySQL常用连接
 内连接INNER JOIN：返回两个表都符合匹配规则的查询结果
 `SELECT * FROM TABLE_A AS A INNER JOIN TABLE_B AS B ON A.id=x AND B.id=y;`
+
 外连接LEFT/RIGHT (OUTER可省略) JOIN：左外连接返回作表全部，右表不匹配的字段设NULL，右外连接同理。与内连接不同之处在于，两个表之一是完整的。
 `SELECT * FROM TABLE_A AS A LEFT JOIN TABLE_B AS B ON A.id=B.id;`
+
 全连接FULL JOIN：LEFT JOIN 加上 RIGHT JOIN
 `SELECT * FROM TABLE_A AS A FULL JOIN TABLE_B AS B ON A.id=B.id;`
 
 ## 乐观锁和悲观锁
 ### 悲观锁
 - 对数据的并发操作持悲观态度
+
 - 先取锁在操作，可以确保数据独占和正确性，但会造成阻塞，例如MySQL中的一锁二查三更新（SELECT FOR UPDATE），行/表/读/写锁等等独占锁
 
 ### 乐观锁
 - 对数据的并发操作持乐观态度
+
 - 通过记录数据的时间戳/版本号，在提交更新时校对，如果中途有修改则回退操作取最新值重新更新。无需加锁也就不会阻塞，而且单次操作的性能较好，但可能失败。例如版本号机制，CAS算法以及数据库MVCC
 
 ***根据数据操作的速度，冲突频率，重试代价来决策***
 - 悲观锁主要用在高并发下数据写操作激烈的环境，以及使用锁的成本低于回滚事务的成本时
+
 - 乐观锁适用在写操作较少的情况，节省加锁的开销能提高整体性能
 
 ### 版本号机制
@@ -45,9 +50,11 @@
 
 ### CAS算法（compare and swap）
 不使用锁实现多线程之间的变量同步，即非阻塞同步。算法实现需要三个操作量：
+
 1. 需要进行读写的内存对应的数值V
 2. 预期值A
 3. 拟写入值B
+
 仅当V=A的时候，修改V为B
 
 ### MVCC（multi-version concurrent control）多版本并发控制
