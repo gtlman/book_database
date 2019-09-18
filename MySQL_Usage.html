@@ -57,7 +57,7 @@
     <link rel="shortcut icon" href="gitbook/images/favicon.ico" type="image/x-icon">
 
     
-    <link rel="next" href="FAQ.html" />
+    <link rel="next" href="Mysql_Python.html" />
     
     
     <link rel="prev" href="Learn_Index.html" />
@@ -154,7 +154,33 @@
             
         </li>
     
-        <li class="chapter " data-level="1.6" data-path="FAQ.html">
+        <li class="chapter " data-level="1.6" data-path="Mysql_Python.html">
+            
+                <a href="Mysql_Python.html">
+            
+                    
+                    MySQL与Python的交互
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.7" data-path="Mysql_Django.html">
+            
+                <a href="Mysql_Django.html">
+            
+                    
+                    MySQL与Django的交互
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.8" data-path="FAQ.html">
             
                 <a href="FAQ.html">
             
@@ -213,7 +239,7 @@
                                 <section class="normal markdown-section">
                                 
                                 <h1 id="mysql&#x4F7F;&#x7528;&#x76F8;&#x5173;"><center>MySQL&#x4F7F;&#x7528;&#x76F8;&#x5173;</center></h1>
-<h2 id="mysql&#x5E38;&#x7528;&#x7C7B;&#x578B;">MySQL&#x5E38;&#x7528;&#x7C7B;&#x578B;</h2>
+<h2 id="mysql&#x5E38;&#x7528;&#x7C7B;&#x578B;"><center>MySQL&#x5E38;&#x7528;&#x7C7B;&#x578B;</center></h2>
 <h3 id="&#x5B57;&#x7B26;&#x4E32;&#x6587;&#x672C;">&#x5B57;&#x7B26;&#x4E32;/&#x6587;&#x672C;</h3>
 <ol>
 <li><strong>CHAR</strong>&#xFF08;&#x5B9A;&#x957F;&#x5B57;&#x7B26;&#x4E32;&#xFF09;&#xFF0C;0-255&#x5B57;&#x8282;</li>
@@ -223,10 +249,12 @@
 </ol>
 <h3 id="&#x6570;&#x503C;">&#x6570;&#x503C;</h3>
 <ol>
+<li><strong>TINYINT</strong>&#xFF08;&#x5FAE;&#x6574;&#x578B;&#xFF09;-&gt;1&#x5B57;&#x8282;&#xFF0C;unsigned&#xFF1A;&#xFF08;0,255&#xFF09;&#xFF0C;signed&#xFF1A;&#xFF08;-128,127&#xFF09;</li>
 <li><strong>INT</strong>&#xFF08;&#x6574;&#x578B;&#xFF09;-&gt;4&#x5B57;&#x8282;&#xFF0C;unsigned&#xFF1A;&#xFF08;0&#xFF0C;2^32&#xFF09;&#xFF0C;signed&#xFF1A;&#xFF08;-2^31&#xFF0C;2^31&#xFF09;</li>
 <li><strong>BIGINT</strong>&#xFF08;&#x957F;&#x6574;&#x578B;&#xFF09;-&gt;8&#x5B57;&#x8282;&#xFF0C;unsigned&#xFF1A;&#xFF08;0&#xFF0C;2^64&#xFF09;&#xFF0C;signed&#xFF1A;&#xFF08;-2^63&#xFF0C;2^63&#xFF09;</li>
 <li><strong>FLOAT</strong>&#xFF08;&#x5355;&#x7CBE;&#x5EA6;&#x6D6E;&#x70B9;&#xFF09;-&gt;4&#x5B57;&#x8282;32&#x4F4D;=1&#x7B26;&#x53F7;23(&#x5C3E;&#x6570;) * 8( &#x57FA;&#x6570;)&#x7684;E(&#x6307;&#x6570;&#xFF09;</li>
 <li><strong>DOUBLE</strong>&#xFF08;&#x53CC;&#x7CBE;&#x5EA6;&#x6D6E;&#x70B9;&#xFF09;-&gt;8&#x5B57;&#x8282;64&#x4F4D;=1&#x7B26;&#x53F7;52(&#x5C3E;&#x6570;) * 11( &#x57FA;&#x6570;)&#x7684;E(&#x6307;&#x6570;&#xFF09;</li>
+<li><strong>BIT(M)</strong>&#xFF08;&#x4E8C;&#x8FDB;&#x5236;&#x6570;&#x636E;&#x7C7B;&#x578B;&#xFF09;-&gt;(M+7)/8 &#x5B57;&#x8282;   ex:BIT(2)-&gt;[00,11], BIT(3)-&gt;[000,111]</li>
 </ol>
 <h3 id="&#x65E5;&#x671F;&#x65F6;&#x95F4;">&#x65E5;&#x671F;&amp;&#x65F6;&#x95F4;</h3>
 <ol>
@@ -236,14 +264,31 @@
 <li><strong>DATETIME</strong>&#xFF1A;YYYY-MM-DD HH:MM:SS</li>
 <li><strong>TIMESTAMP</strong>&#xFF1A;YYYYMMDD HHMMSS&#xFF08;1970-01-01 00:00:00/2038&#xFF09;</li>
 </ol>
-<h2 id="mysql&#x5E38;&#x7528;&#x8FDE;&#x63A5;">MySQL&#x5E38;&#x7528;&#x8FDE;&#x63A5;</h2>
+<h3 id="&#x679A;&#x4E3E;&#x7C7B;&#x578B;">&#x679A;&#x4E3E;&#x7C7B;&#x578B;</h3>
+<p><strong>ENUM</strong>&#xFF1A;MySQL&#x4F1A;&#x521B;&#x5EFA;&#x679A;&#x4E3E;&#x503C;&#x7684;hash&#x8868;&#xFF0C;&#x6570;&#x636E;&#x8868;&#x4E2D;&#x5B58;&#x7684;&#x662F;&#x5BF9;&#x5E94;&#x7D22;&#x5F15;-&gt;&#xFF08;1&#x6216;&#x8005;2&#x4E2A;&#x5B57;&#x8282;&#xFF0C;&#x53D6;&#x51B3;&#x4E8E;&#x679A;&#x4E3E;&#x503C;&#x7684;&#x4E2A;&#x6570;&#xFF09;&#xFF0C;&#x6700;&#x591A;&#x53EF;&#x4EE5;&#x6709;65535&#x4E2A;&#x679A;&#x4E3E;&#x503C; ex: enum(&apos;a&apos;,&apos;b&apos;,&apos;c&apos;)</p>
+<h2 id="&#x6570;&#x636E;&#x7C7B;&#x578B;&#x4F7F;&#x7528;&#x7B56;&#x7565;"><center>&#x6570;&#x636E;&#x7C7B;&#x578B;&#x4F7F;&#x7528;&#x7B56;&#x7565;</center></h2>
+<h3 id="tinyint-vs-bit-vs-enum">TINYINT vs BIT vs ENUM</h3>
+<p>&#x7C7B;&#x4F3C;&#x6027;&#x522B;&#x8FD9;&#x7C7B;&#x5B57;&#x6BB5;&#xFF0C;&#x4F7F;&#x7528; TINYINT &#x5B58; 0,1,2</p>
+<p>&#x7136;&#x540E;&#x5728;&#x670D;&#x52A1;&#x7AEF;&#x5C06;&#x6570;&#x636E;&#x8F6C;&#x6362;&#x4E3A;&#x7537;,&#x5973;,&#x672A;&#x77E5;</p>
+<h3 id="char-vs-varchar">CHAR vs VARCHAR</h3>
+<p>&#x5F53;&#x8868;&#x5927;&#x5C0F;&#x5C0F;&#x4E8E;Innodb buffer pool&#x65F6;&#xFF0C;CHAR&#x548C;VARCHAR&#x6CA1;&#x6709;&#x5DEE;&#x522B;&#xFF0C;&#x800C;&#x5728;&#x8868;&#x5927;&#x5C0F;&#x5927;&#x4E8E;Innodb buffer pool&#x65F6;&#xFF0C;VARCHAR&#x6027;&#x80FD;&#x53CD;&#x800C;&#x66F4;&#x9AD8;&#xFF01;</p>
+<p>&#x5F53;Innodb buffer pool&#x5C0F;&#x4E8E;&#x8868;&#x5927;&#x5C0F;&#x65F6;&#xFF0C;&quot;&#x78C1;&#x76D8;&#x8BFB;&#x5199;&quot;&#x6210;&#x4E3A;&#x4E86;&#x6027;&#x80FD;&#x7684;&#x5173;&#x952E;&#x56E0;&#x7D20;&#xFF0C;&#x800C;VARCHAR&#x66F4;&#x77ED;&#xFF0C;&#x56E0;&#x6B64;&#x6027;&#x80FD;&#x53CD;&#x800C;&#x6BD4;CHAR&#x9AD8;&#x3002;</p>
+<p>&#x4F18;&#x5148;&#x4F7F;&#x7528;VARCHAR&#xFF0C;&#x7279;&#x522B;&#x662F;&#x5B57;&#x7B26;&#x4E32;&#x7684;&#x5E73;&#x5747;&#x957F;&#x5EA6;&#x6BD4;&#x6700;&#x5927;&#x957F;&#x5EA6;&#x8981;&#x5C0F;&#x5F88;&#x591A;&#x7684;&#x60C5;&#x51B5;</p>
+<p>&#x5982;&#x679C;&#x4F60;&#x7684;&#x5B57;&#x7B26;&#x4E32;&#x672C;&#x6765;&#x5C31;&#x5F88;&#x77ED;&#xFF0C;&#x4F8B;&#x5982;&#x53EA;&#x6709;10&#x4E2A;&#x5B57;&#x7B26;&#xFF0C;&#x90A3;&#x4E48;&#x5C31;&#x4F18;&#x5148;&#x9009;CHAR&#x4E86;</p>
+<h3 id="float-vs-double-vs-decimal">FLOAT vs DOUBLE vs DECIMAL</h3>
+<ol>
+<li>&#x5982;&#x679C;&#x4F60;&#x8981;&#x8868;&#x793A;&#x7684;&#x6D6E;&#x70B9;&#x578B;&#x6570;&#x636E;&#x8F6C;&#x6210;&#x4E8C;&#x8FDB;&#x5236;&#x4E4B;&#x540E;&#x80FD;&#x88AB;32&#x4F4D;float&#x5B58;&#x50A8;&#x6216;&#x8005;&#x53EF;&#x4EE5;&#x5BB9;&#x5FCD;&#x622A;&#x65AD;(&#x4E8C;&#x8FDB;&#x5236;&#x5C0F;&#x6570;&#x53EF;&#x80FD;&#x51FA;&#x73B0;&#x65E0;&#x9650;&#x5FAA;&#x73AF;)&#xFF0C;&#x5219;&#x4F7F;&#x7528;float&#xFF0C;&#x8FD9;&#x4E2A;&#x8303;&#x56F4;&#x5927;&#x6982;&#x4E3A;&#x8981;&#x7CBE;&#x786E;&#x4FDD;&#x5B58;6&#x4F4D;&#x6570;&#x5B57;&#x5DE6;&#x53F3;&#x7684;&#x6D6E;&#x70B9;&#x578B;&#x6570;&#x636E;&#xFF0C;&#x6BD4;&#x5982;10&#x5206;&#x5236;&#x7684;&#x5E97;&#x94FA;&#x79EF;&#x5206;&#x53EF;&#x4EE5;&#x7528;float&#x5B58;&#x50A8;&#xFF0C;&#x5C0F;&#x5546;&#x54C1;&#x96F6;&#x552E;&#x4EF7;&#x683C;(1000&#x5757;&#x4E4B;&#x5185;)</li>
+<li>&#x5982;&#x679C;&#x4F60;&#x8981;&#x8868;&#x793A;&#x7684;&#x6D6E;&#x70B9;&#x578B;&#x6570;&#x636E;&#x8F6C;&#x6210;&#x4E8C;&#x8FDB;&#x5236;&#x4E4B;&#x540E;&#x80FD;&#x88AB;64&#x4F4D;double&#x5B58;&#x50A8;&#xFF0C;&#x6216;&#x8005;&#x53EF;&#x4EE5;&#x5BB9;&#x5FCD;&#x622A;&#x65AD;&#xFF0C;&#x8FD9;&#x4E2A;&#x8303;&#x56F4;&#x5927;&#x81F4;&#x8981;&#x7CBE;&#x786E;&#x5230;&#x4FDD;&#x5B58;13&#x4F4D;&#x6570;&#x5B57;&#x5DE6;&#x53F3;&#x7684;&#x6D6E;&#x70B9;&#x578B;&#x6570;&#x636E;&#x6BD4;&#x5982;&#x6C7D;&#x8F66;&#x4EF7;&#x683C;,&#x51E0;&#x5343;&#x4E07;&#x7684;&#x5DE5;&#x7A0B;&#x9020;&#x4EF7;</li>
+<li>&#x76F8;&#x6BD4;double&#xFF0C;&#x5DF2;&#x7ECF;&#x6EE1;&#x8DB3;&#x6211;&#x4EEC;&#x5927;&#x90E8;&#x5206;&#x6D6E;&#x70B9;&#x578B;&#x6570;&#x636E;&#x7684;&#x5B58;&#x50A8;&#x7CBE;&#x5EA6;&#x8981;&#x6C42;&#xFF0C;&#x5982;&#x679C;&#x8FD8;&#x8981;&#x7CBE;&#x76CA;&#x6C42;&#x7CBE;&#xFF0C;&#x5219;&#x4F7F;&#x7528;decimal&#x5B9A;&#x70B9;&#x578B;&#x5B58;&#x50A8;&#x6BD4;&#x5982;&#x4E00;&#x4E9B;&#x79D1;&#x5B66;&#x6570;&#x636E;&#xFF0C;&#x7CBE;&#x5EA6;&#x8981;&#x6C42;&#x5F88;&#x9AD8;&#x7684;&#x91D1;&#x94B1;</li>
+</ol>
+<h2 id="mysql&#x5E38;&#x7528;&#x8FDE;&#x63A5;"><center>MySQL&#x5E38;&#x7528;&#x8FDE;&#x63A5;</center></h2>
 <p><strong>&#x5185;&#x8FDE;&#x63A5;INNER JOIN</strong>&#xFF1A;&#x8FD4;&#x56DE;&#x4E24;&#x4E2A;&#x8868;&#x90FD;&#x7B26;&#x5408;&#x5339;&#x914D;&#x89C4;&#x5219;&#x7684;&#x67E5;&#x8BE2;&#x7ED3;&#x679C;</p>
 <p><code>SELECT * FROM TABLE_A AS A INNER JOIN TABLE_B AS B ON A.id=x AND B.id=y;</code></p>
 <p><strong>&#x5916;&#x8FDE;&#x63A5;LEFT/RIGHT (OUTER&#x53EF;&#x7701;&#x7565;) JOIN</strong>&#xFF1A;&#x5DE6;&#x5916;&#x8FDE;&#x63A5;&#x8FD4;&#x56DE;&#x4F5C;&#x8868;&#x5168;&#x90E8;&#xFF0C;&#x53F3;&#x8868;&#x4E0D;&#x5339;&#x914D;&#x7684;&#x5B57;&#x6BB5;&#x8BBE;NULL&#xFF0C;&#x53F3;&#x5916;&#x8FDE;&#x63A5;&#x540C;&#x7406;&#x3002;&#x4E0E;&#x5185;&#x8FDE;&#x63A5;&#x4E0D;&#x540C;&#x4E4B;&#x5904;&#x5728;&#x4E8E;&#xFF0C;&#x4E24;&#x4E2A;&#x8868;&#x4E4B;&#x4E00;&#x662F;&#x5B8C;&#x6574;&#x7684;&#x3002;</p>
 <p><code>SELECT * FROM TABLE_A AS A LEFT JOIN TABLE_B AS B ON A.id=B.id;</code></p>
 <p><strong>&#x5168;&#x8FDE;&#x63A5;FULL JOIN</strong>&#xFF1A;LEFT JOIN &#x52A0;&#x4E0A; RIGHT JOIN</p>
 <p><code>SELECT * FROM TABLE_A AS A FULL JOIN TABLE_B AS B ON A.id=B.id;</code></p>
-<h2 id="&#x4E50;&#x89C2;&#x9501;&#x548C;&#x60B2;&#x89C2;&#x9501;">&#x4E50;&#x89C2;&#x9501;&#x548C;&#x60B2;&#x89C2;&#x9501;</h2>
+<h2 id="&#x4E50;&#x89C2;&#x9501;&#x548C;&#x60B2;&#x89C2;&#x9501;"><center>&#x4E50;&#x89C2;&#x9501;&#x548C;&#x60B2;&#x89C2;&#x9501;</center></h2>
 <h3 id="&#x60B2;&#x89C2;&#x9501;">&#x60B2;&#x89C2;&#x9501;</h3>
 <ul>
 <li><p>&#x5BF9;&#x6570;&#x636E;&#x7684;&#x5E76;&#x53D1;&#x64CD;&#x4F5C;&#x6301;&#x60B2;&#x89C2;&#x6001;&#x5EA6;</p>
@@ -251,6 +296,8 @@
 <li><p>&#x5148;&#x53D6;&#x9501;&#x5728;&#x64CD;&#x4F5C;&#xFF0C;&#x53EF;&#x4EE5;&#x786E;&#x4FDD;&#x6570;&#x636E;&#x72EC;&#x5360;&#x548C;&#x6B63;&#x786E;&#x6027;&#xFF0C;&#x4F46;&#x4F1A;&#x9020;&#x6210;&#x963B;&#x585E;&#xFF0C;&#x4F8B;&#x5982;MySQL&#x4E2D;&#x7684;&#x4E00;&#x9501;&#x4E8C;&#x67E5;&#x4E09;&#x66F4;&#x65B0;&#xFF08;SELECT FOR UPDATE&#xFF09;&#xFF0C;&#x884C;/&#x8868;/&#x8BFB;/&#x5199;&#x9501;&#x7B49;&#x7B49;&#x72EC;&#x5360;&#x9501;</p>
 </li>
 </ul>
+<h4 id="innodb-&#x7684;-&#x884C;&#x9501;-&#x548C;-&#x8868;&#x9501;">InnoDB &#x7684; &#x884C;&#x9501; &#x548C; &#x8868;&#x9501;</h4>
+<p>MySQL&#x7684;&#x884C;&#x9501;&#x662F;&#x9488;&#x5BF9;&#x7D22;&#x5F15;&#x52A0;&#x7684;&#x9501;&#xFF0C;&#x4E0D;&#x662F;&#x9488;&#x5BF9;&#x8BB0;&#x5F55;&#x52A0;&#x7684;&#x9501;&#xFF0C;&#x6240;&#x4EE5;&#x867D;&#x7136;&#x662F;&#x8BBF;&#x95EE;&#x4E0D;&#x540C;&#x884C;&#x7684;&#x8BB0;&#x5F55;&#xFF0C;&#x4F46;&#x662F;&#x5982;&#x679C;&#x662F;&#x4F7F;&#x7528;&#x76F8;&#x540C;&#x7684;&#x7D22;&#x5F15;&#x952E;&#xFF0C;&#x662F;&#x4F1A;&#x51FA;&#x73B0;&#x9501;&#x51B2;&#x7A81;&#x7684;&#xFF0C;&#x540C;&#x7406;&#x5C31;&#x662F;&#x5728;&#x6CA1;&#x6709;&#x7D22;&#x5F15;&#x7684;&#x60C5;&#x51B5;&#x4E0B;&#xFF0C;InnoDB&#x53EA;&#x80FD;&#x4F7F;&#x7528;&#x8868;&#x9501;&#x3002;&#x5F53;&#x6211;&#x4EEC;&#x7ED9;&#x5176;&#x589E;&#x52A0;&#x4E00;&#x4E2A;&#x7D22;&#x5F15;&#x540E;&#xFF0C;InnoDB&#x624D;&#x4F1A;&#x9501;&#x5B9A;&#x7B26;&#x5408;&#x6761;&#x4EF6;&#x7684;&#x884C;</p>
 <h3 id="&#x4E50;&#x89C2;&#x9501;">&#x4E50;&#x89C2;&#x9501;</h3>
 <ul>
 <li><p>&#x5BF9;&#x6570;&#x636E;&#x7684;&#x5E76;&#x53D1;&#x64CD;&#x4F5C;&#x6301;&#x4E50;&#x89C2;&#x6001;&#x5EA6;</p>
@@ -321,7 +368,7 @@
                 </a>
                 
                 
-                <a href="FAQ.html" class="navigation navigation-next " aria-label="Next page: 常见问题">
+                <a href="Mysql_Python.html" class="navigation navigation-next " aria-label="Next page: MySQL与Python的交互">
                     <i class="fa fa-angle-right"></i>
                 </a>
                 
@@ -332,7 +379,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"MySQL使用相关","level":"1.5","depth":1,"next":{"title":"常见问题","level":"1.6","depth":1,"path":"FAQ.md","ref":"FAQ.md","articles":[]},"previous":{"title":"索引","level":"1.4","depth":1,"path":"Learn_Index.md","ref":"Learn_Index.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"MySQL_Usage.md","mtime":"2019-09-03T03:52:24.652Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2019-09-03T07:22:36.337Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"MySQL使用相关","level":"1.5","depth":1,"next":{"title":"MySQL与Python的交互","level":"1.6","depth":1,"path":"Mysql_Python.md","ref":"Mysql_Python.md","articles":[]},"previous":{"title":"索引","level":"1.4","depth":1,"path":"Learn_Index.md","ref":"Learn_Index.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"MySQL_Usage.md","mtime":"2019-09-18T10:58:09.836Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2019-09-18T10:58:42.912Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>

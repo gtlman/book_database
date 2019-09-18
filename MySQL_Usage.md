@@ -1,5 +1,7 @@
 # <center>MySQL使用相关</center>
-## MySQL常用类型
+
+
+## <center>MySQL常用类型</center>
 ### 字符串/文本
 1. **CHAR**（定长字符串），0-255字节
 2. **VARCHAR**（变长字符串），0-65535（2^16）字节
@@ -7,10 +9,12 @@
 4. **BLOB**（二进制长文本数据），0-65535（2^16）字节
 
 ### 数值
-1. **INT**（整型）->4字节，unsigned：（0，2^32），signed：（-2^31，2^31）
-2. **BIGINT**（长整型）->8字节，unsigned：（0，2^64），signed：（-2^63，2^63）
-3. **FLOAT**（单精度浮点）->4字节32位=1符号23(尾数) * 8( 基数)的E(指数）
-4. **DOUBLE**（双精度浮点）->8字节64位=1符号52(尾数) * 11( 基数)的E(指数）
+1. **TINYINT**（微整型）->1字节，unsigned：（0,255），signed：（-128,127）
+2. **INT**（整型）->4字节，unsigned：（0，2^32），signed：（-2^31，2^31）
+3. **BIGINT**（长整型）->8字节，unsigned：（0，2^64），signed：（-2^63，2^63）
+4. **FLOAT**（单精度浮点）->4字节32位=1符号23(尾数) * 8( 基数)的E(指数）
+5. **DOUBLE**（双精度浮点）->8字节64位=1符号52(尾数) * 11( 基数)的E(指数）
+6. **BIT(M)**（二进制数据类型）->(M+7)/8 字节   ex:BIT(2)->[00,11], BIT(3)->[000,111]
 
 ### 日期&时间
 1. **Date**：YYYY-MM-DD（1000-01-01/9999-12-31）
@@ -19,7 +23,31 @@
 4. **DATETIME**：YYYY-MM-DD HH:MM:SS
 5. **TIMESTAMP**：YYYYMMDD HHMMSS（1970-01-01 00:00:00/2038）
 
-## MySQL常用连接
+### 枚举类型
+**ENUM**：MySQL会创建枚举值的hash表，数据表中存的是对应索引->（1或者2个字节，取决于枚举值的个数），最多可以有65535个枚举值 ex: enum('a','b','c')
+
+## <center>数据类型使用策略</center>
+### TINYINT vs BIT vs ENUM
+类似性别这类字段，使用 TINYINT 存 0,1,2
+
+然后在服务端将数据转换为男,女,未知
+
+### CHAR vs VARCHAR
+当表大小小于Innodb buffer pool时，CHAR和VARCHAR没有差别，而在表大小大于Innodb buffer pool时，VARCHAR性能反而更高！
+
+当Innodb buffer pool小于表大小时，"磁盘读写"成为了性能的关键因素，而VARCHAR更短，因此性能反而比CHAR高。
+
+优先使用VARCHAR，特别是字符串的平均长度比最大长度要小很多的情况
+
+如果你的字符串本来就很短，例如只有10个字符，那么就优先选CHAR了
+
+### FLOAT vs DOUBLE vs DECIMAL
+1. 如果你要表示的浮点型数据转成二进制之后能被32位float存储或者可以容忍截断(二进制小数可能出现无限循环)，则使用float，这个范围大概为要精确保存6位数字左右的浮点型数据，比如10分制的店铺积分可以用float存储，小商品零售价格(1000块之内)
+2. 如果你要表示的浮点型数据转成二进制之后能被64位double存储，或者可以容忍截断，这个范围大致要精确到保存13位数字左右的浮点型数据比如汽车价格,几千万的工程造价
+3. 相比double，已经满足我们大部分浮点型数据的存储精度要求，如果还要精益求精，则使用decimal定点型存储比如一些科学数据，精度要求很高的金钱
+
+
+## <center>MySQL常用连接</center>
 __内连接INNER JOIN__：返回两个表都符合匹配规则的查询结果
 
 `SELECT * FROM TABLE_A AS A INNER JOIN TABLE_B AS B ON A.id=x AND B.id=y;`
@@ -32,7 +60,7 @@ __全连接FULL JOIN__：LEFT JOIN 加上 RIGHT JOIN
 
 `SELECT * FROM TABLE_A AS A FULL JOIN TABLE_B AS B ON A.id=B.id;`
 
-## 乐观锁和悲观锁
+## <center>乐观锁和悲观锁</center>
 ### 悲观锁
 - 对数据的并发操作持悲观态度
 
