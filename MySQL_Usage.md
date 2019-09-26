@@ -47,6 +47,24 @@
 2. 如果你要表示的浮点型数据转成二进制之后能被64位double存储，或者可以容忍截断，这个范围大致要精确到保存13位数字左右的浮点型数据比如汽车价格,几千万的工程造价
 3. 相比double，已经满足我们大部分浮点型数据的存储精度要求，如果还要精益求精，则使用decimal定点型存储比如一些科学数据，精度要求很高的金钱
 
+## 关键字
+```
+CREATE
+INSERT
+UPDATE
+SELECT
+DELETE
+WHERE
+ON
+HAVING
+GROUP BY
+ORDER BY
+SET sex = CASE sex WHEN "m" THEN "f" ELSE "m" END
+EXIST：参数是一个子查询（SELECT...），子查询如果有返回行则 EXISTS 结果为 TRUE，该行的 col1 才会返回，相当于在父查询中加一个 BOOL 字段来控制最终输出
+    ->SELECT col1 FROM tab1 WHERE EXISTS (SELECT 1 FROM tab2 WHERE col2 = tab1.col2);
+IN
+```
+
 
 ## <center>MySQL常用连接</center>
 __内连接INNER JOIN__：返回两个表都符合匹配规则的查询结果
